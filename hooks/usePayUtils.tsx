@@ -2,12 +2,10 @@
 import { useCallback } from 'react';
 import { useGetExIdConfig } from '@/dy_next_utils/context/ExidProider';
 
-import AxiosRequest from '@/utils/axiosRequest';
-import { trimAll } from '@/utils/formats/trimAll';
-
 import toast from 'react-hot-toast/headless';
 import { useGetUrlParams } from '@/context/UrlParamsProvider';
-import { useOpenUrl } from '@/utils/openUrl';
+import { trimAll, useOpenUrl, } from '../utils';
+import AxiosRequest from '../utils/axiosRequest';
 
 interface PayDataType {
   channelCode: string | number;
@@ -54,7 +52,7 @@ const usePayUtils = () => {
     [payMode],
   );
   // 微信支付
-  const wxPay = useCallback(() => {}, [payMode]);
+  const wxPay = useCallback(() => { }, [payMode]);
   // 订阅套餐
   const subPackage = useCallback(
     ({ channelCode, mobile }: PayDataType): Promise<PayDataResponseType> => {
@@ -84,7 +82,7 @@ const usePayUtils = () => {
     [payMode],
   );
   // 检查是否支付
-  const checkPay = useCallback(() => {}, [payMode]);
+  const checkPay = useCallback(() => { }, [payMode]);
   // 支付函数
   const pay = useCallback(
     (mobile: string, channelCode: string) => {

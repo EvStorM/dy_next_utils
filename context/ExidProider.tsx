@@ -2,8 +2,9 @@
 import React, { createContext, useCallback, useContext, useMemo } from 'react';
 import { useRequest, useSessionStorageState } from 'ahooks';
 
-import useCheck from '@/hooks/useCheck';
 import RightsProvider from '@/context/RightsProider';
+import useCheck from '../hooks/useCheck';
+import Notifications from '../components/Toast';
 
 interface ExIdConfig {
   payMode: number;
@@ -84,6 +85,7 @@ const ExIdConfigProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <ExIdConfigContext.Provider value={value}>
+      <Notifications />
       <RightsProvider>{children}</RightsProvider>
     </ExIdConfigContext.Provider>
   );

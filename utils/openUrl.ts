@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import useEvoke from '@/utils/useEvoke';
+import useEvoke from './useEvoke';
 
 // iframe打开支付页面
 const openIframe = (url: string) => {
@@ -31,8 +31,8 @@ export const useOpenUrl = () => {
 
   useEffect(() => {
     return () => {
-      window.removeEventListener('pagehide', () => {});
-      window.removeEventListener('visibilitychange', () => {});
+      window.removeEventListener('pagehide', () => { });
+      window.removeEventListener('visibilitychange', () => { });
       clearTimeout(timer.current);
     };
   }, []);

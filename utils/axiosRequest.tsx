@@ -181,8 +181,9 @@ const transform: InterceptorHooks = {
   },
 };
 
-export default new Request({
+const AxiosRequest = new Request({
   baseURL: BASEURL,
   timeout: 15000,
   interceptorHooks: transform,
 });
+export default AxiosRequest;

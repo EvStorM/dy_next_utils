@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import { InputProps, useInput } from '@nextui-org/react';
-
+import EvCss from './index.module.css';
 const CloseFilledIcon = (props: any) => (
   <svg
     aria-hidden="true"
@@ -18,7 +18,7 @@ const CloseFilledIcon = (props: any) => (
   </svg>
 );
 
-const styles = {
+const styles1 = {
   label: 'text-black/50 dark:text-white/90',
   input: [
     '!bg-white',
@@ -26,8 +26,8 @@ const styles = {
     'h-14',
     'text-black/90 dark:text-white/90',
     'hover:!bg-white',
-    'placeholder:text-default-700/50  placeholder:text-lg placeholder:leading-[30px] dark:placeholder:text-white/60',
-    'noStyleInput',
+    'placeholder:text-default-700/50  placeholder:text-xl placeholder:leading-[30px] dark:placeholder:text-white/60',
+    EvCss.evInput,
     // 'placeholder:-translate-y-1',
   ],
   innerWrapper: 'bg-white focus-within:bg-white rounded-full hover:bg-white',
@@ -47,6 +47,31 @@ const styles = {
   ],
 };
 
+const styles = {
+  label: "text-black/50 dark:text-white/90",
+  input: [
+    '!bg-white',
+    'h-14',
+    'font-extrabold text-[32px]',
+    "text-black/90 dark:text-white/90",
+    "placeholder:text-default-700/50 dark:placeholder:text-white/60",
+    'placeholder:text-[32px]',
+    EvCss.evInput,
+  ],
+  innerWrapper: ["bg-transparent",
+    '!font-extrabold !text-[32px]',
+  ],
+  inputWrapper: [
+    'h-14',
+    '!bg-white',
+    'rounded-full',
+    "backdrop-blur-xl",
+    "backdrop-saturate-200",
+    "dark:hover:bg-default/70",
+    "dark:focus-within:!bg-default/60",
+    "!cursor-text",
+  ],
+};
 const EvInput = forwardRef((props: InputProps, ref: any) => {
   const {
     Component,
@@ -70,6 +95,7 @@ const EvInput = forwardRef((props: InputProps, ref: any) => {
   } = useInput({
     ...props,
     ref,
+    radius: 'full',
     // custom styles
     classNames: {
       ...styles,
@@ -105,36 +131,38 @@ const EvInput = forwardRef((props: InputProps, ref: any) => {
   }, [startContent, end, getInputProps, getInnerWrapperProps]);
 
   return (
-    <Component {...getBaseProps()}>
-      {shouldLabelBeOutside ? labelContent : null}
-      <div
-        {...getInputWrapperProps()}
-        role="button"
-        style={{
-          background: '#ffffff !important',
-        }}
-        onClick={() => {
-          domRef.current?.focus();
-        }}
-      >
-        {shouldLabelBeInside ? labelContent : null}
-        {innerWrapper}
-      </div>
-      {description && <div {...getDescriptionProps()}>{description}</div>}
-      {errorMessage && (
+    <div className="flex items-center justify-center text-3xl rounded-2xl">
+      <Component {...getBaseProps()}>
+        {shouldLabelBeOutside ? labelContent : null}
         <div
-          {...getErrorMessageProps()}
+          tabIndex={0}
+          {...getInputWrapperProps()}
+          role="button"
+          style={{
+            background: '#ffffff !important',
+            fontSize: '32px !important',
+          }}
+          onClick={() => {
+            domRef.current?.focus();
+          }}
+          onKeyDown={() => {
+            domRef.current?.focus();
+          }}
+        >
+          {shouldLabelBeInside ? labelContent : null}
+          {innerWrapper}
+        </div>
+        {description && <div {...getDescriptionProps()}>{description}</div>}
+        {errorMessage && <div
           style={{
             fontSize: '10px',
             padding: '0 12px 0 12px',
             position: 'absolute',
             bottom: '-10px',
           }}
-        >
-          {errorMessage}
-        </div>
-      )}
-    </Component>
+          {...getErrorMessageProps()}>{errorMessage}</div>}
+      </Component >
+    </div >
   );
 });
 
