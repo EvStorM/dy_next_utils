@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { InputProps, useInput } from '@nextui-org/react';
+import { InputProps, useInput } from '@heroui/input';
 import EvCss from './index.module.css';
 const CloseFilledIcon = (props: any) => (
   <svg
