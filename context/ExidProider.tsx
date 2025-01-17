@@ -2,7 +2,6 @@
 import React, { createContext, useCallback, useContext, useMemo } from 'react';
 import { useRequest, useSessionStorageState } from 'ahooks';
 
-import RightsProvider from '@/context/RightsProider';
 import useCheck from '../hooks/useCheck';
 import Notifications from '../components/Toast';
 
@@ -86,7 +85,7 @@ const ExIdConfigProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <ExIdConfigContext.Provider value={value}>
       <Notifications />
-      <RightsProvider>{children}</RightsProvider>
+      {children}
     </ExIdConfigContext.Provider>
   );
 };

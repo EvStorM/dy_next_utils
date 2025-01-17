@@ -4,8 +4,7 @@ import ReactDOM from 'react-dom';
 import { useToaster } from 'react-hot-toast/headless';
 
 import { NetWork, SuccessSvg, LoadingSvg, NoticeSvg } from './utils';
-import dynamic from 'next/dynamic';
-import { Spinner } from '@nextui-org/react';
+import { Spinner } from '@heroui/spinner';
 import useLockedBody from './useLockedBody';
 
 const TypeIconInit: any = {
