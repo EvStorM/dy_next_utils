@@ -131,7 +131,7 @@ const EvInput = forwardRef((props: InputProps, ref: any) => {
   }, [startContent, end, getInputProps, getInnerWrapperProps]);
 
   return (
-    <div className="flex items-center justify-center text-3xl rounded-2xl">
+    <div className="flex items-center justify-center rounded-2xl text-3xl">
       <Component {...getBaseProps()}>
         {shouldLabelBeOutside ? labelContent : null}
         <div

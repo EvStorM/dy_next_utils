@@ -1,9 +1,16 @@
-'use client';
-import React, { createContext, useCallback, useContext, useMemo } from 'react';
-import { useRequest, useSessionStorageState } from 'ahooks';
+"use client";
+import React, {
+  createContext,
+  Suspense,
+  useCallback,
+  useContext,
+  useMemo,
+} from "react";
+import { useRequest, useSessionStorageState } from "ahooks";
 
-import useCheck from '../hooks/useCheck';
-import Notifications from '../components/Toast';
+import useCheck from "../hooks/useCheck";
+import Notifications from "../components/Toast";
+import UrlParamsProvider from "./UrlParamsProvider";
 
 interface ExIdConfig {
   payMode: number;
@@ -21,31 +28,31 @@ interface ExIdConfigContextValue extends ExIdConfig {
 }
 
 export const ExIdConfigContext = createContext<ExIdConfigContextValue>({
-  companyName: '',
-  companyTel: '',
+  companyName: "",
+  companyTel: "",
   payMode: 0,
   payAmount: 0,
   retainAmount: 0,
-  aoId: '',
-  exId: '',
-  channelCode: '',
-  channelName: '',
+  aoId: "",
+  exId: "",
+  channelCode: "",
+  channelName: "",
 });
 
-const ExIdConfigProvider = ({ children }: { children: React.ReactNode }) => {
+const ExIdConfigs = ({ children }: { children: React.ReactNode }) => {
   const { exId, aoId } = useCheck();
 
   const [ExIdConfig, setExIdConfig] = useSessionStorageState<ExIdConfig>(
-    'use-Session-storage-ExIdConfig',
+    "use-Session-storage-ExIdConfig",
     {
       defaultValue: {
         payMode: 0,
-        companyName: '',
-        companyTel: '',
+        companyName: "",
+        companyTel: "",
         payAmount: 0,
         retainAmount: 0,
-        channelCode: '',
-        channelName: '',
+        channelCode: "",
+        channelName: "",
       },
     },
   );
@@ -53,7 +60,7 @@ const ExIdConfigProvider = ({ children }: { children: React.ReactNode }) => {
     if (exId) {
       return new Promise((resolve, reject) => {
         fetch(`https://link.quanyi.fun/config/exids/${exId}.json`, {
-          cache: 'no-cache',
+          cache: "no-cache",
         })
           .then((res) => res.json())
           .then((data) => {
@@ -70,12 +77,12 @@ const ExIdConfigProvider = ({ children }: { children: React.ReactNode }) => {
 
   const value = useMemo(() => {
     return {
-      exId: exId ?? '',
-      aoId: aoId ?? '',
-      channelCode: ExIdConfig?.channelCode ?? '',
-      channelName: ExIdConfig?.channelName ?? '权益优享',
-      companyName: ExIdConfig?.companyName ?? '',
-      companyTel: ExIdConfig?.companyTel ?? '',
+      exId: exId ?? "",
+      aoId: aoId ?? "",
+      channelCode: ExIdConfig?.channelCode ?? "",
+      channelName: ExIdConfig?.channelName ?? "权益优享",
+      companyName: ExIdConfig?.companyName ?? "",
+      companyTel: ExIdConfig?.companyTel ?? "",
       payMode: ExIdConfig?.payMode ?? 0,
       payAmount: ExIdConfig?.payAmount ?? 0,
       retainAmount: ExIdConfig?.retainAmount ?? 0,
@@ -84,9 +91,19 @@ const ExIdConfigProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <ExIdConfigContext.Provider value={value}>
-      <Notifications />
-      {children}
+      <UrlParamsProvider>
+        <Notifications />
+        {children}
+      </UrlParamsProvider>
     </ExIdConfigContext.Provider>
+  );
+};
+
+const ExIdConfigProvider = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <Suspense fallback={<></>}>
+      <ExIdConfigs>{children}</ExIdConfigs>
+    </Suspense>
   );
 };
 

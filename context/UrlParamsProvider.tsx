@@ -15,7 +15,7 @@ export const UrlParamsContext = createContext<UrlParamsContextValue>({
   fullUrl: "",
 });
 
-function UrlParamsProviders({ children }: UrlParamsProviderProps) {
+function UrlParamsProvider({ children }: UrlParamsProviderProps) {
   const params = useSearchParams().toString();
   const value = useMemo(() => {
     return {
@@ -24,14 +24,12 @@ function UrlParamsProviders({ children }: UrlParamsProviderProps) {
   }, []);
 
   return (
-    <UrlParamsContext.Provider value={value}>
-      {children}
-    </UrlParamsContext.Provider>
+    <Suspense fallback={<></>}>
+      <UrlParamsContext.Provider value={value}>
+        {children}
+      </UrlParamsContext.Provider>
+    </Suspense>
   );
-}
-
-function UrlParamsProvider({ children }: UrlParamsProviderProps) {
-  return <UrlParamsProviders>{children}</UrlParamsProviders>;
 }
 
 export const useGetUrlParams = () => {

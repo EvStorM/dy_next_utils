@@ -1,11 +1,13 @@
-import { useEffect, useRef } from 'react';
-import useEvoke from './useEvoke';
+"use client";
+
+import { useEffect, useRef } from "react";
+import useEvoke from "./useEvoke";
 
 // iframe打开支付页面
 const openIframe = (url: string) => {
-  const iframe = document.createElement('iframe');
+  const iframe = document.createElement("iframe");
 
-  iframe.style.display = 'none';
+  iframe.style.display = "none";
   iframe.src = url;
   document.body.appendChild(iframe);
   setTimeout(() => {
@@ -31,8 +33,8 @@ export const useOpenUrl = () => {
 
   useEffect(() => {
     return () => {
-      window.removeEventListener('pagehide', () => { });
-      window.removeEventListener('visibilitychange', () => { });
+      window.removeEventListener("pagehide", () => {});
+      window.removeEventListener("visibilitychange", () => {});
       clearTimeout(timer.current);
     };
   }, []);

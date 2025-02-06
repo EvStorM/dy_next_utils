@@ -1,25 +1,25 @@
-'use client';
+"use client";
 
-import { useMount, useSessionStorageState } from 'ahooks';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useMount, useSessionStorageState } from "ahooks";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const useCheck = () => {
   const [phone, setPhone] = useSessionStorageState<string | undefined>(
-    'use-local-storage-state-phone',
+    "use-local-storage-state-phone",
     {
-      defaultValue: '',
+      defaultValue: "",
     },
   );
   const [exId, setExId] = useSessionStorageState<string | undefined>(
-    'use-local-storage-state-exId',
+    "use-local-storage-state-exId",
     {
-      defaultValue: '',
+      defaultValue: "",
     },
   );
   const [aoId, setAoId] = useSessionStorageState<string | undefined>(
-    'use-local-storage-state-aoId',
+    "use-local-storage-state-aoId",
     {
-      defaultValue: '',
+      defaultValue: "",
     },
   );
 
@@ -33,19 +33,19 @@ const useCheck = () => {
   });
 
   const getExId = () => {
-    const val = searchParams.get('ex_id') ?? '';
+    const val = searchParams.get("ex_id") ?? "";
     setExId(val);
   };
 
   const getPhone = () => {
-    const phone = searchParams.get('phone') ?? searchParams.get('mobile') ?? '';
+    const phone = searchParams.get("phone") ?? searchParams.get("mobile") ?? "";
     setPhone(phone);
   };
   const getAoId = () => {
     const val =
-      searchParams.get('a_oId') ??
-      searchParams.get('bxm_id') ??
-      searchParams.get('qcjParamStr') ??
+      searchParams.get("a_oId") ??
+      searchParams.get("bxm_id") ??
+      searchParams.get("qcjParamStr") ??
       aoId;
     setAoId(val);
   };

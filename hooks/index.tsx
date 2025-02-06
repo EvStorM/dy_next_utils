@@ -1,3 +1,2 @@
-export * from './useCheck';
-export * from './usePayUtils';
-
+export * from "./useCheck";
+export * from "./usePayUtils";

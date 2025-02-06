@@ -1,19 +1,21 @@
-import { useEffect, useMemo, useRef } from 'react';
+"use client";
+
+import { useEffect, useRef } from "react";
 
 const useEvoke = () => {
   const hidden = useRef<string | undefined>(undefined);
   const visibilityChange = useRef<string | undefined>(undefined);
   const getSupportedProperty = (): void => {
-    if (typeof document === 'undefined') return;
-    if (typeof document.hidden !== 'undefined') {
-      hidden.current = 'hidden';
-      visibilityChange.current = 'visibilitychange';
-    } else if (typeof (document as any)?.msHidden !== 'undefined') {
-      hidden.current = 'msHidden';
-      visibilityChange.current = 'msvisibilitychange';
-    } else if (typeof (document as any)?.webkitHidden !== 'undefined') {
-      hidden.current = 'webkitHidden';
-      visibilityChange.current = 'webkitvisibilitychange';
+    if (typeof document === "undefined") return;
+    if (typeof document.hidden !== "undefined") {
+      hidden.current = "hidden";
+      visibilityChange.current = "visibilitychange";
+    } else if (typeof (document as any)?.msHidden !== "undefined") {
+      hidden.current = "msHidden";
+      visibilityChange.current = "msvisibilitychange";
+    } else if (typeof (document as any)?.webkitHidden !== "undefined") {
+      hidden.current = "webkitHidden";
+      visibilityChange.current = "webkitvisibilitychange";
     }
   };
 
@@ -22,7 +24,7 @@ const useEvoke = () => {
    */
   function isPageHidden(): boolean {
     if (hidden.current === null) return false;
-    if (typeof hidden.current === 'undefined') return false;
+    if (typeof hidden.current === "undefined") return false;
 
     return (document as any)[hidden.current] as boolean;
   }
@@ -30,9 +32,9 @@ const useEvoke = () => {
     getSupportedProperty();
 
     return () => {
-      window.removeEventListener('pagehide', () => { });
-      if (typeof visibilityChange.current !== 'undefined') {
-        window.removeEventListener(visibilityChange.current, () => { });
+      window.removeEventListener("pagehide", () => {});
+      if (typeof visibilityChange.current !== "undefined") {
+        window.removeEventListener(visibilityChange.current, () => {});
       }
     };
   }, []);
@@ -45,12 +47,12 @@ const useEvoke = () => {
       }
     }, timeout);
 
-    if (typeof visibilityChange.current !== 'undefined') {
+    if (typeof visibilityChange.current !== "undefined") {
       document.addEventListener(visibilityChange.current, () => {
         clearTimeout(timer);
       });
     } else {
-      window.addEventListener('pagehide', () => {
+      window.addEventListener("pagehide", () => {
         clearTimeout(timer);
       });
     }

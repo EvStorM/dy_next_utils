@@ -1,5 +1,3 @@
-import TipsDiv from '@/components/TipsDiv';
-import Step1 from '@/assets/step/Step 1.png';
 import { trimAll } from '@/dy_next_utils/utils/formats/trimAll';
 import { isMobile, isStartWithTel } from '@/dy_next_utils/utils/rep';
 import { separateTel } from '@/dy_next_utils/utils/formats/separateTel';
@@ -15,11 +13,6 @@ interface PhoneInputProps {
 const PhoneInput = ({ stepNum, phone, setPhone, onFocus }: PhoneInputProps) => {
   return (
     <div className={'flexrc relative justify-between w-full'}>
-      {stepNum === 1 && (
-        <div className={'absolute -top-3'}>
-          <TipsDiv img={Step1}></TipsDiv>
-        </div>
-      )}
       <EvInput
         type="tel"
         onFocus={onFocus}
